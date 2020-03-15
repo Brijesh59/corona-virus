@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -33,7 +34,7 @@ import {
 import './App.css'
 import  AppBar  from './components/Appbar';
 import  Loader  from './components/Loader';
-
+import {formatDateTime} from './utils/functions'
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -91,6 +92,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     height: 120
   },
+  date:{
+    marginTop: 80,
+    float: 'right',
+    [theme.breakpoints.up('sm')]: {
+      visibility: 'hidden'
+     },
+  },
 }));
 
 function App() {
@@ -132,8 +140,12 @@ function App() {
       <div className={classes.root}>
         <ThemeProvider theme={theme}>
           <AppBar statsDate={worldTotalStat.statistic_taken_at}/>
-          <Grid container spacing={3} style={{marginTop: 80}}>
-            <Grid item xs={12} sm={3}>
+          <Typography className={classes.date}>
+            <span style={{fontStyle:'italic'}}>As per - </span> 
+            {formatDateTime(worldTotalStat.statistic_taken_at)}
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.card} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -145,7 +157,7 @@ function App() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.card} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -160,7 +172,7 @@ function App() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={6} md={3}>
             <Card className={classes.card} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -176,7 +188,7 @@ function App() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <Card className={classes.card} variant="outlined">
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -226,6 +238,14 @@ function App() {
               }}
 
           />
+          {/* <Snackbar  
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+            }} 
+            open={true} 
+            autoHideDuration={6000}  
+            message="Note archived" /> */}
         </ThemeProvider>
       </div>
       : <Loader isLoaded={casesByCountry.length>0}/>
