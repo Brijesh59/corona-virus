@@ -127,6 +127,7 @@ function App() {
       // setAffectedCountries(affectedCountries)
       setCasesByCountry(casesByCountry)
       setWorldTotalStat(worldTotalStat)
+      console.log('Loaded')
     }
     loadData()
     setInterval(loadData, 10000)
